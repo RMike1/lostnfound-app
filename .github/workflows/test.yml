@@ -36,6 +36,9 @@ jobs:
       - name: Generate application key
         run: |
           php artisan key:generate
+      - name: Reset Cache
+        run: |
+          php artisan config:cache
       - name: Run tests
         run: |
           php artisan test
