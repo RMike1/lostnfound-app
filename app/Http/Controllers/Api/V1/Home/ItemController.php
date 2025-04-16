@@ -16,7 +16,7 @@ class ItemController extends Controller
         $data = $this->itemService->index($req);
 
         return response()->json([
-            'category' => $data[0],
+            'categories' => $data[0],
             'items' => $data[1],
         ], 200);
     }
