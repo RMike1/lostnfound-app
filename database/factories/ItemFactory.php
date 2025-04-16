@@ -19,11 +19,11 @@ class ItemFactory extends Factory
     {
         return [
             'title' => fake()->sentence(1),
-            'description'=>fake()->paragraph(3),
-            'location'=>fake()->address(),
-            'post_type'=>fake()->randomElement(PostTypeEnum::cases()),
-            'lost_at'=>fake()->dateTimeBetween('-1 year', 'now'),
-            'found_at'=>fake()->dateTimeBetween('-1 year', 'now')
+            'description' => fake()->paragraph(3),
+            'location' => fake()->address(),
+            'post_type' => fake()->randomElement(PostTypeEnum::cases()),
+            'lost_at' => fake()->dateTimeBetween('-1 year', 'now'),
+            'found_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

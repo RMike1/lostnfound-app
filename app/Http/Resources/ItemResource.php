@@ -3,9 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\ItemImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
@@ -23,10 +20,14 @@ class ItemResource extends JsonResource
             'description' => $this->description,
             'location' => $this->location,
             'post_type' => $this->post_type,
-            'category' => new CategoryResource($this->whenLoaded('category')),
-            'user'     => new UserResource($this->whenLoaded('user')),
+            'name' => $this->name,
+            'email' => $this->email,
+            'telephone' => $this->telephone,
             'posted_at' => $this->created_at->diffForHumans(),
-            'itemImages'   => ItemImageResource::collection($this->whenLoaded('itemImages')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'user' => new UserResource($this->whenLoaded('user')),
+            'itemImages' => ItemImageResource::collection($this->whenLoaded('itemImages')),
+
         ];
     }
 }

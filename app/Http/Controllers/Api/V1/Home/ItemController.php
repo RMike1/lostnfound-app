@@ -2,36 +2,28 @@
 
 namespace App\Http\Controllers\Api\V1\Home;
 
-use App\Models\Item;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ItemResource;
-use App\Services\Api\V1\ItemService;
 use App\Http\Requests\ItemStoreRequest;
+use App\Services\Api\V1\ItemService;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function __construct(private ItemService $itemService){}
-    
-    public function index()
+    public function __construct(private ItemService $itemService) {}
+
+    public function index(Request $req)
     {
-        return response()->json($this->itemService->index());
+        $data = $this->itemService->index($req);
+
+        return response()->json([
+            'category' => $data[0],
+            'items' => $data[1],
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ItemStoreRequest $request)
     {
-        return response()->json($this->itemService->store($request));
+        return response()->json([$this->itemService->store($request)], 201);
     }
 
     /**

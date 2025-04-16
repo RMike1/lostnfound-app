@@ -2,14 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Item;
-use App\Models\User;
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\ItemImage;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CategorySeeder extends Seeder
 {
