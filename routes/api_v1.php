@@ -20,17 +20,15 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.reset');
 
-Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(middleware: ['auth:sanctum', 'throttle:6,1'])->name('verification.verify');
+// Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(middleware: ['auth:sanctum', 'throttle:6,1'])->name('verification.verify');
 
-Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
+// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum')->name('logout');
 
-// ========================================Items Routes========================================
+// ========================================posts Routes========================================
 
-Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+Route::get('/posts', [ItemController::class, 'index'])->name('post.index');
 
-// Route::post('/items/store', [ItemController::class, 'store'])->middleware('auth:sanctum')->name('items.store');
-Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
+Route::post('/post/store', [ItemController::class, 'store'])->middleware('auth:sanctum')->name('items.store');
 
-Route::get('/me', UserController::class)->name('users.me')->middleware('auth:sanctum');

@@ -27,12 +27,12 @@ class ItemStoreRequest extends FormRequest
             'title' => ['required', 'string', 'min:3', 'max:30'],
             'description' => ['required', 'string', 'min:3', 'max:255'],
             'location' => ['required', 'string', 'min:3', 'max:255'],
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'string', Rule::email()->strict()],
-            'telephone' => ['required'],
+            // 'name' => ['required', 'string', 'min:3', 'max:255'],
+            // 'email' => ['required', 'string', Rule::email()->strict()],
+            // 'telephone' => ['required'],
             'category_id' => ['required', 'exists:categories,id'],
             'user_id' => ['required', 'exists:users,id'],
-            'itemImages' => ['nullable', 'array', 'max:4', 'min:3'],
+            'itemImages' => ['nullable', 'array', 'max:4', 'min:2'],
             'itemImages.*' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'post_type' => ['required', 'string', Rule::enum(PostTypeEnum::class)],
         ];
@@ -52,15 +52,6 @@ class ItemStoreRequest extends FormRequest
             'location.required' => 'Please enter the location where the item was lost or found.',
             'location.min' => 'Location must be at least :min characters.',
             'location.max' => 'Location must not exceed :max characters.',
-
-            'name.required' => 'Please enter your name.',
-            'name.min' => 'Your name must be at least :min characters.',
-            'name.max' => 'Your name must not exceed :max characters.',
-
-            'email.required' => 'Email is required.',
-            'email.email' => 'Please provide a valid email address.',
-
-            'telephone.required' => 'Please provide a telephone number.',
 
             'category_id.required' => 'Please select a category.',
             'category_id.exists' => 'The selected category is invalid.',

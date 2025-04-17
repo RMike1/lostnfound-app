@@ -16,10 +16,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        // $request->validate([
-        //     'email' => ['required', 'string', 'email'],
-        //     'password' => ['required', 'string'],
-        // ]);
 
         $user = User::where('email', $request->validated('email'))->first();
         if (! $user || ! Hash::check($request->validated('password'), $user->password)) {
@@ -28,11 +24,10 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
         $data = [
-            // 'user'=> $user,
             'token' => $user->createToken($user->email)->plainTextToken,
         ];
 
-        return response()->json($data, 201);
+        return response()->json($data, 200);
     }
 
     /**
