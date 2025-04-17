@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\Home\ItemController;
-use App\Http\Controllers\Api\v1\Auth\UserController;
-use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
-use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
-use App\Http\Controllers\Api\V1\Auth\RegisteredUserController;
-use App\Http\Controllers\Api\V1\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\V1\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
+use App\Http\Controllers\Api\V1\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Api\V1\Auth\RegisteredUserController;
+use App\Http\Controllers\Api\v1\Auth\UserController;
+use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\V1\Home\ItemController;
+use Illuminate\Support\Facades\Route;
 
 // ============================Auth Routes========================================
 
@@ -33,5 +33,4 @@ Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 // Route::post('/items/store', [ItemController::class, 'store'])->middleware('auth:sanctum')->name('items.store');
 Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
 
-Route::get('/me',UserController::class)->name('users.me')->middleware('auth:sanctum');
-
+Route::get('/me', UserController::class)->name('users.me')->middleware('auth:sanctum');
