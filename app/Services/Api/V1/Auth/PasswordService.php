@@ -10,16 +10,14 @@ use Illuminate\Validation\ValidationException;
 
 class PasswordService
 {
-    public function sendPasswordLink($request): array
+    public function sendPasswordLink($request): string|array
     {
         $status = Password::sendResetLink(
             $request->safe()->only('email')
         );
 
         if ($status === Password::RESET_LINK_SENT) {
-            return [
-                'status' => __($status),
-            ];
+            return __($status);
         }
 
         throw ValidationException::withMessages([
