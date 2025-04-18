@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
-use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
-use App\Http\Controllers\Api\V1\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\V1\Home\ItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +16,7 @@ Route::controller(AuthController::class)->group(function () {
 
 // ========================================Items Routes========================================
 
-Route::prefix('items')->controller(ItemController::class)->group(function(){
-    Route::get('/',  'index')->name('items.index');
-    Route::post('/store', 'store')->middleware('auth:sanctum')->name('items.store');
+Route::prefix('items')->middleware(['auth:sanctum'])->controller(ItemController::class)->group(function () {
+    Route::get('/', 'index')->name('items.index');
+    Route::post('/store', 'store')->name('items.store');
 });
