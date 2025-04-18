@@ -48,12 +48,12 @@ class AuthController extends Controller
     {
         return response()->json([
             'user' => $this->registerService->register($request->validated()),
-        ]);
+        ],201);
     }
 
     public function forgotPassword(UserPasscodeForgotRequest $request)
     {
-        return $this->passwordService->sendPasswordLink($request);
+        return response()->json($this->passwordService->sendPasswordLink($request),200);
     }
 
     public function resetPassword(UserPasscodeResetRequest $request)
