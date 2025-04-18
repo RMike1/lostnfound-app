@@ -1,34 +1,24 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Api\V1\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Api\V1\Auth\RegisteredUserController;
-use App\Http\Controllers\Api\v1\Auth\UserController;
-use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
 use App\Http\Controllers\Api\V1\Home\ItemController;
 use Illuminate\Support\Facades\Route;
 
 // ============================Auth Routes========================================
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'login')->name('login');
+    Route::post('/register', 'register')->name('register');
+    Route::post('/forgot-password', 'forgotPassword')->name('password.email');
+    Route::post('/reset-password', 'resetPassword')->name('password.reset');
+    Route::post('/logout', 'logout')->middleware('auth:sanctum')->name('logout');
+});
 
-Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
+// ========================================Items Routes========================================
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.reset');
-
-// Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)->middleware(middleware: ['auth:sanctum', 'throttle:6,1'])->name('verification.verify');
-
-// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum')->name('logout');
-
-// ========================================posts Routes========================================
-
-Route::get('/posts', [ItemController::class, 'index'])->name('post.index');
-
-Route::post('/post/store', [ItemController::class, 'store'])->middleware('auth:sanctum')->name('items.store');
-
+Route::prefix('items')->controller(ItemController::class)->group(function(){
+    Route::get('/',  'index')->name('items.index');
+    Route::post('/store', 'store')->middleware('auth:sanctum')->name('items.store');
+});
