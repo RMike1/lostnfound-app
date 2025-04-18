@@ -41,9 +41,6 @@ class AuthController extends Controller
 
     // ==================Register===================
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function register(UserRegisterRequest $request): JsonResponse
     {
         return response()->json([
