@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -38,7 +37,7 @@ class ResetPasswordNotification extends Notification
             ->from('jonsnow@gmail.com', 'Lost and Found App Inc.')
             ->subject('Reset Password')
             ->action('Reset Password', url($this->url))
-            ->markdown('notifications.email', ['name' => $notifiable->name, 'token'=>$this->token]);
+            ->markdown('notifications.email', ['name' => $notifiable->name, 'token' => $this->token]);
     }
 
     /**
