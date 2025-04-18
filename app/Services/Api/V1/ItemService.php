@@ -2,24 +2,34 @@
 
 namespace App\Services\Api\V1;
 
-use App\Http\Resources\ItemResource;
-use App\Models\Category;
 use App\Models\Item;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Resources\ItemResource;
+use App\Http\Requests\ItemStoreRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\CategoryResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+// use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class ItemService
 {
-    public function index($req): array
+     /**
+     * @param Request $req
+     * @return array{0: ResourceCollection, 1: ResourceCollection}
+     */
+    public function index(Request $req): array
     {
         return [
             Category::get()->toResourceCollection(),
-            Item::with(['category', 'user', 'itemImages' => function ($q) {
-                $q->take(1);
+            Item::query()->with(['category', 'user', 'itemImages' => function ($q) {
+                $q->where('is_primary',true);
             }])->filtered($req)->latest()->get()->toResourceCollection(),
         ];
     }
 
-    public function store($req)
+    public function store(ItemStoreRequest $req): ItemResource
     {
         $item = Item::create($req->safe()->except('itemImages'));
         if ($req->hasFile('itemImages')) {

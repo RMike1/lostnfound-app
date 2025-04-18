@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('item_images', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('url');
+            $table->boolean('is_primary')->default(false);
             $table->foreignUlid('item_id')->constrained('items')->cascadeOnDelete();
             $table->timestamps();
         });

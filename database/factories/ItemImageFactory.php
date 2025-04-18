@@ -17,7 +17,8 @@ class ItemImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'url' => fake()->imageUrl(640, 480),
+            'url' => fake()->imageUrl(640, 640),
+            'is_primary' => fake()->boolean(10),
         ];
     }
 }
