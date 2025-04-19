@@ -10,7 +10,6 @@ use App\Http\Requests\ItemStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-// use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder;
 
 class ItemService
@@ -23,9 +22,12 @@ class ItemService
     {
         return [
             Category::get()->toResourceCollection(),
-            Item::query()->with(['category', 'user', 'itemImages' => function ($q) {
-                $q->where('is_primary',true);
-            }])->filtered($req)->latest()->get()->toResourceCollection(),
+            Item::query()
+                ->with(['category','user','itemImages' => fn($query) => $query->primaryImage()])
+                ->filtered($req)
+                ->latest()
+                ->get()
+                ->toResourceCollection(),
         ];
     }
 
