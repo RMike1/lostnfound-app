@@ -29,7 +29,7 @@ class ItemService
         ];
     }
 
-    public function store(ItemStoreRequest $req): ItemResource
+    public function store($req): ItemResource
     {
         $item = Item::create($req->safe()->except('itemImages'));
         if ($req->hasFile('itemImages')) {

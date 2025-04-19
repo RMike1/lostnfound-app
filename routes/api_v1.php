@@ -16,7 +16,8 @@ Route::controller(AuthController::class)->group(function () {
 
 // ========================================Items Routes========================================
 
-Route::prefix('items')->middleware(['auth:sanctum'])->controller(ItemController::class)->group(function () {
+// Route::prefix('items')->middleware(['auth:sanctum'])->controller(ItemController::class)->group(function () {
+Route::prefix('items')->controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('items.index');
     Route::post('/store', 'store')->name('items.store');
 });

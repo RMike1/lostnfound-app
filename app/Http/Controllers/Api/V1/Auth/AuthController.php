@@ -23,8 +23,10 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
+        $user = $this->authService->login($request);
         return response()->json([
-            'token' => $this->authService->login($request),
+            'token' => $user[0],
+            'user' => $user[1],
         ], 200);
     }
 

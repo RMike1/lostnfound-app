@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
-    public function login(LoginRequest $request): string
+    public function login(LoginRequest $request): array
     {
         $request->authenticate();
-        $user = Auth::user();
+        $user = Auth::user()->toResource();
 
-        return $user->createToken($user->email)->plainTextToken;
+        return [
+            $user->createToken($user->email)->plainTextToken,
+            $user
+        ];
     }
 
     public function logout(Request $request): bool
